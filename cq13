@@ -1,0 +1,46 @@
+
+class SavingsAccount:
+    def __init__(self, account_id: int, balance: float, previous_balance: float, annual_interest_rate: float):
+        self.account_id = account_id
+        self.balance = balance
+        self.previous_balance = previous_balance
+        self.annual_interest_rate = annual_interest_rate
+
+    def set_interest_rate (self, updated_rate: float) -> None:
+        self.annual_interest_rate = updated_rate
+
+    def get_monthly_interest_rate(self) -> float:
+        return self.annual_interest_rate / 12 / 100
+
+    def get_monthly_interest(self) -> float:
+        return self.balance * (self.get_monthly_interest_rate())
+
+    def get_balance_change_percentage(self) -> float:
+        return ((self.balance - self.previous_balance) / self.previous_balance) * 100
+
+    def withdraw(self, amount: float) -> None:
+        if amount > self.balance:
+            print("Insufficient Balance!")
+        else:
+            self.balance -= amount
+
+    def deposit(self, amount: float) -> None:
+        self.balance += amount
+
+
+def cq() -> None:
+    # account is the object
+
+    account = SavingsAccount(1122, 20_000, 18_500, 4.5)
+
+    account.withdraw(2_500)
+    account.deposit(3_000)
+
+    print ("Account ID:", account.account_id)
+    print ("Current Balance:", account.balance)
+    print ("Monthly Interest Rate:", account.get_monthly_interest_rate() * 100, "%")
+    print ("Monthly Interest:", f"{account.get_monthly_interest():.2f}")
+    print ("Balance Change Percentage:", f"{account.get_balance_change_percentage():.2f}%", )
+
+if __name__ == "__main__":
+    cq()
